@@ -1,4 +1,5 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import { signInWithEmailAndPassword, setPersistence } from 'firebase/auth';
 
 import { Nav } from './components/nav/Nav';
 import { Header } from './components/header/Header';
@@ -12,19 +13,23 @@ import { Edit } from './components/edit-post/Edit';
 import { Footer } from './components/footer/Footer';
 
 function App() {
+  const navigate = useNavigate();
+
+ 
+
   return (
     <>
       <Nav />
       <Header />
       <main className='site__content'>
         <Routes>
-          <Route path='/' element={<Posts />}/>
-          <Route path='/myposts' element={<MyPosts />}/>
-          <Route path='/posts/:postId' element={<Post />}/>
-          <Route path='/create' element={<Create />}/>
-          <Route path='/edit/:postId' element={<Edit />}/>
-          <Route path='/register' element={<Register />}/>
-          <Route path='/login' element={<Login />}/>
+          <Route path='/' element={<Posts />} />
+          <Route path='/myposts' element={<MyPosts />} />
+          <Route path='/posts/:postId' element={<Post />} />
+          <Route path='/create' element={<Create />} />
+          <Route path='/edit/:postId' element={<Edit />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/login' element={<Login />} />
         </Routes>
       </main>
       <Footer />
