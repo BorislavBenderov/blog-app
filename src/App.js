@@ -1,5 +1,5 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword, setPersistence, browserSessionPersistence, getAuth, onAuthStateChanged } from 'firebase/auth';
+import { signInWithEmailAndPassword, setPersistence, browserSessionPersistence, getAuth, onAuthStateChanged, createUserWithEmailAndPassword } from 'firebase/auth';
 import { AuthContext } from './contexts/AuthContext';
 import { database } from './firebaseConfig';
 
@@ -39,9 +39,20 @@ function App() {
     navigate('/');
   }
 
+  const onRegister = (auth, email, password) => {
+    setPersistence(auth, browserSessionPersistence)
+      .then(() => {
+        createUserWithEmailAndPassword(auth, email, password);
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+    navigate('/');
+  }
+
   return (
     <>
-      <AuthContext.Provider value={{ auth, onLogin }}>
+      <AuthContext.Provider value={{ auth, onLogin, onRegister }}>
         <Nav />
         <Header />
         <main className='site__content'>
