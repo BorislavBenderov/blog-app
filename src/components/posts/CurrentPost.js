@@ -1,13 +1,15 @@
 import { Link, useParams } from "react-router-dom";
 import { PostContext } from '../../contexts/PostContext';
+import { AuthContext } from '../../contexts/AuthContext';
 import { useContext } from "react";
 
 export const CurrentPost = () => {
     const { posts } = useContext(PostContext);
+    const { auth } = useContext(AuthContext);
     const { postId } = useParams();
 
     const currentPost = posts.find(post => post.id === postId);
-    console.log(currentPost);
+    const isOwner = currentPost.ownerId === auth.currentUser.uid;
 
     return (
         <section>
@@ -29,9 +31,11 @@ export const CurrentPost = () => {
                         <p>
                             {currentPost.content}
                         </p>
-                        <Link className="btn btn-outline-primary btn-sm" to={`/edit/${postId}`}>Edit</Link>
-                        <a className="btn btn-outline-primary btn-sm">Delete</a>
-                    </div> 
+                        {isOwner
+                            ? <> <Link className="btn btn-outline-primary btn-sm" to={`/edit/${postId}`}>Edit</Link>
+                                <a className="btn btn-outline-primary btn-sm">Delete</a> </>
+                            : ''}
+                    </div>
                 </div>
             </div>
         </section>
