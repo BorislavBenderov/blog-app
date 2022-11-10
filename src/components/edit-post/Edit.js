@@ -6,6 +6,8 @@ export const Edit = () => {
             <input type="text" placeholder="Title" id="title" name="title" />
             <label htmlFor="description"></label>
             <input type="text" placeholder="Description" id="description" name="description" />
+            <label htmlFor="imageUrl"></label>
+            <input type="text" placeholder="Image" id="imageUrl" name="imageUrl" />
             <label htmlFor="content"></label>
             <textarea type="text" placeholder="Content" id="content" name="content" />
             <button>Edit Post</button>
