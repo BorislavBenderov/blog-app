@@ -52,7 +52,7 @@ function App() {
 
   return (
     <>
-      <AuthContext.Provider value={{ auth, onLogin, onRegister }}>
+      <AuthContext.Provider value={{ auth, onLogin, onRegister, setLoggedUser, loggedUser }}>
         <Nav />
         <Header />
         <main className='site__content'>

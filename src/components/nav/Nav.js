@@ -1,6 +1,19 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthContext";
+import { signOut } from "firebase/auth";
 
 export const Nav = () => {
+    const { auth, loggedUser, setLoggedUser } = useContext(AuthContext);
+
+    const onLogout = () => {
+        signOut(auth).then(() => {
+            setLoggedUser(null);
+        }).catch((err) => {
+            alert(err.message);
+        });
+    }
+
     return (
         < nav
             id="scrollspy"
@@ -26,31 +39,36 @@ export const Nav = () => {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav ml-auto">
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/login">
-                                Login
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/register">
-                                Register
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/myposts">
-                                My Posts
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/create">
-                                Add Post
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/">
-                                Logout
-                            </Link>
-                        </li>
+                        {!loggedUser
+                            ? <>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/login">
+                                        Login
+                                    </Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/register">
+                                        Register
+                                    </Link>
+                                </li>
+                            </>
+                            : <>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/myposts">
+                                        My Posts
+                                    </Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/create">
+                                        Add Post
+                                    </Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/" onClick={onLogout}>
+                                        Logout
+                                    </Link>
+                                </li>
+                            </>}
                     </ul>
                 </div>
             </div>
