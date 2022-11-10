@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { PostContext } from '../../contexts/PostContext';
 import { useContext } from "react";
 
@@ -29,7 +29,7 @@ export const CurrentPost = () => {
                         <p>
                             {currentPost.content}
                         </p>
-                        <a className="btn btn-outline-primary btn-sm">Edit</a>
+                        <Link className="btn btn-outline-primary btn-sm" to={`/edit/${postId}`}>Edit</Link>
                         <a className="btn btn-outline-primary btn-sm">Delete</a>
                     </div> 
                 </div>
