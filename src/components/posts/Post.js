@@ -19,8 +19,8 @@ export const Post = () => {
                             quaerat beatae labore explicabo, sint laboriosam aperiam nihil
                             inventore facilis. Quasi, facilis.
                         </p>
-                        <button className="btn btn-outline-primary btn-sm">Edit</button>
-                        <button className="btn btn-outline-primary btn-sm">Delete</button>
+                        <a className="btn btn-outline-primary btn-sm">Edit</a>
+                        <a className="btn btn-outline-primary btn-sm">Delete</a>
                     </div> 
                 </div>
             </div>

@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export const Nav = () => {
     return (
         < nav
@@ -7,10 +9,10 @@ export const Nav = () => {
             data-offset-top={20}
         >
             <div className="container">
-                <a className="navbar-brand" href="#">
-                    <strong className="text-primary">Ultimate</strong>{" "}
+                <Link className="navbar-brand" to="/">
+                    <strong className="text-primary">Ultimate</strong>
                     <span className="text-dark">Blog</span>
-                </a>
+                </Link>
                 <button
                     className="navbar-toggler"
                     type="button"
@@ -25,29 +27,29 @@ export const Nav = () => {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
-                            <a className="nav-link" href="#home">
+                            <Link className="nav-link" to="/login">
                                 Login
-                            </a>
+                            </Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#about">
+                            <Link className="nav-link" to="/register">
                                 Register
-                            </a>
+                            </Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#features">
+                            <Link className="nav-link" to="/myposts">
                                 My Posts
-                            </a>
+                            </Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#testmonial">
+                            <Link className="nav-link" to="/create">
                                 Add Post
-                            </a>
+                            </Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#contact">
+                            <Link className="nav-link" to="/">
                                 Logout
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>

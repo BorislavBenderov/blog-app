@@ -1,6 +1,4 @@
-import { Link } from "react-router-dom";
-
-export const Posts = () => {
+export const MyPosts = () => {
     return (
         <section>
             <div className="container">
@@ -21,7 +19,7 @@ export const Posts = () => {
                             quaerat beatae labore explicabo, sint laboriosam aperiam nihil
                             inventore facilis. Quasi, facilis.
                         </p>
-                        <Link className="btn btn-outline-primary btn-sm" to="/posts/:postId">Learn More</Link>
+                        <button className="btn btn-outline-primary btn-sm">Learn More</button>
                     </div> 
                 </div>
             </div>
