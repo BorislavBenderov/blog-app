@@ -1,15 +1,33 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { PostContext } from '../../contexts/PostContext';
 import { AuthContext } from '../../contexts/AuthContext';
 import { useContext } from "react";
+import { doc, deleteDoc } from 'firebase/firestore';
+import { database } from '../../firebaseConfig';
 
 export const CurrentPost = () => {
     const { posts } = useContext(PostContext);
     const { auth } = useContext(AuthContext);
     const { postId } = useParams();
+    const navigate = useNavigate();
 
     const currentPost = posts.find(post => post.id === postId);
-    const isOwner = currentPost.ownerId === auth.currentUser.uid;
+
+    let isOwner = null;
+
+    if (auth.currentUser) {
+        isOwner = currentPost.ownerId === auth.currentUser.uid;
+    }
+
+    const onDelete = async (id, e) => {
+        const confirmation = window.confirm('Are you sure you want to delete this post?');
+
+        if (confirmation) {
+            e.preventDefault();
+            navigate('/');
+            await deleteDoc(doc(database, 'posts', id));
+        }
+    }
 
     return (
         <section>
@@ -33,7 +51,7 @@ export const CurrentPost = () => {
                         </p>
                         {isOwner
                             ? <> <Link className="btn btn-outline-primary btn-sm" to={`/edit/${postId}`}>Edit</Link>
-                                <a className="btn btn-outline-primary btn-sm">Delete</a> </>
+                                <a className="btn btn-outline-primary btn-sm" onClick={(e) => onDelete(postId, e)}>Delete</a> </>
                             : ''}
                     </div>
                 </div>
