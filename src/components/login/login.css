@@ -1,4 +1,4 @@
-form{
+.auth{
     height: 520px;
     width: 400px;
     background-color: royalblue;
@@ -19,21 +19,21 @@ form *{
     outline: none;
     border: none;
 }
-form h3{
+.auth h3{
     font-size: 32px;
     font-weight: 500;
     line-height: 42px;
     text-align: center;
 }
 
-label {
+.auth label {
     display: block;
     margin-top: 30px;
     font-size: 16px;
     font-weight: 500;
 }
 
-input, textarea {
+.auth input, .auth textarea {
     display: block;
     height: 50px;
     width: 100%;
@@ -48,7 +48,7 @@ input, textarea {
 ::placeholder{
     color: #e5e5e5;
 }
-button{
+.auth button{
     margin-top: 50px;
     width: 100%;
     background-color: #ffffff;

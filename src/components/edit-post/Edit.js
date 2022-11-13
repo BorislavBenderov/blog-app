@@ -42,7 +42,7 @@ export const Edit = () => {
     };
 
     return (
-        <form onSubmit={onEdit}>
+        <form className="auth" onSubmit={onEdit}>
             <h3>Edit Post</h3>
             <label htmlFor="title"></label>
             <input type="text" placeholder="Title" id="title" name="title" value={values.title} onChange={changeHandler}/>

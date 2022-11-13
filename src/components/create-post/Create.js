@@ -28,7 +28,7 @@ export const Create = () => {
     }
 
     return (
-        <form onSubmit={onCreate}>
+        <form className="auth" onSubmit={onCreate}>
             <h3>Add Post</h3>
             <label htmlFor="title"></label>
             <input type="text" placeholder="Title" id="title" name="title" />

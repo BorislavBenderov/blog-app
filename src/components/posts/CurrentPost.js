@@ -84,7 +84,7 @@ export const CurrentPost = () => {
                                 <a className="btn btn-outline-primary btn-sm" onClick={(e) => onDelete(postId, e)}>Delete</a> </>
                             : ''}
                         {loggedUser
-                            ? <form onSubmit={onCreateComment}>
+                            ? <form className="comment-form" onSubmit={onCreateComment}>
                                 <input type="text" name="comment" id="comment" value={input} onChange={(e) => setInput(e.target.value)} />
                                 <button className="btn btn-outline-primary btn-sm" type="submit">Add Comment</button>
                             </form>
@@ -95,7 +95,7 @@ export const CurrentPost = () => {
                         <h4 className="comments-title">
                             Comments
                         </h4>
-                        <ul className="commets-section">
+                        <ul className="comments-section">
                             {comments.length > 0
                                 ? comments.map(comment => <Comment key={comment.id} comment={comment} />)
                                 : <p>No comment in database!</p>}

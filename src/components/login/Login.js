@@ -21,7 +21,7 @@ export const Login = () => {
     }
 
     return (
-        <form onSubmit={onSubmit}>
+        <form className='auth' onSubmit={onSubmit}>
             <h3>Login Here</h3>
             <label htmlFor="email">Username</label>
             <input type="text" placeholder="Email" id="email" name="email" />

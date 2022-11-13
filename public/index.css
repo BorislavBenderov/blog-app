@@ -603,7 +603,7 @@ pre code {
 }
 
 .comments {
-  background-color: red;
+  background-color: var(--primary);
   border-radius: 16px;
 }
 
@@ -611,7 +611,7 @@ pre code {
   text-align: center;
 }
 
-.commets-section {
+.comments-section {
   display: flex;
   list-style-type: none;
   justify-content: space-between;
@@ -620,7 +620,7 @@ pre code {
 }
 
 .comments-box {
-  background-color: green;
+  background-color: var(--secondary);
   border-radius: 16px;
   margin: 10px;
   padding: 10px;
@@ -634,6 +634,10 @@ pre code {
 .comments-button {
   width: 100px;
   margin: 10px;
+}
+
+.comment-form {
+  color: black;
 }
 
 @media (min-width: 576px) {

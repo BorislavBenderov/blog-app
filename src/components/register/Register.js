@@ -26,7 +26,7 @@ export const Register = () => {
     }
 
     return (
-        <form onSubmit={onSubmit}>
+        <form className='auth' onSubmit={onSubmit}>
             <h3>Register Here</h3>
             <label htmlFor="email"></label>
             <input type="text" placeholder="Email" id="email" name="email" />

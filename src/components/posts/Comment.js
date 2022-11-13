@@ -30,7 +30,7 @@ export const Comment = ({ comment }) => {
                 {comment.text}
             </p>
             {commentOwner
-                ? <button className="comments-button" onClick={(e) => onDeleteComment(comment.id, e)}>Delete</button>
+                ? <button className="btn btn-outline-primary btn-sm" onClick={(e) => onDeleteComment(comment.id, e)}>Delete</button>
                 : ''}
 
         </li>
