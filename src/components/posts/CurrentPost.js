@@ -10,7 +10,7 @@ export const CurrentPost = () => {
     const [comments, setComments] = useState([]);
     const [input, setInput] = useState([]);
     const { posts } = useContext(PostContext);
-    const { auth } = useContext(AuthContext);
+    const { auth, loggedUser } = useContext(AuthContext);
     const { postId } = useParams();
     const navigate = useNavigate();
 
@@ -83,11 +83,13 @@ export const CurrentPost = () => {
                             ? <> <Link className="btn btn-outline-primary btn-sm" to={`/edit/${postId}`}>Edit</Link>
                                 <a className="btn btn-outline-primary btn-sm" onClick={(e) => onDelete(postId, e)}>Delete</a> </>
                             : ''}
+                        {loggedUser
+                            ? <form onSubmit={onCreateComment}>
+                                <input type="text" name="comment" id="comment" value={input} onChange={(e) => setInput(e.target.value)} />
+                                <button className="btn btn-outline-primary btn-sm" type="submit">Add Comment</button>
+                            </form>
+                            : ''}
 
-                        <form onSubmit={onCreateComment}>
-                            <input type="text" name="comment" id="comment" value={input} onChange={(e) => setInput(e.target.value)} />
-                            <button className="btn btn-outline-primary btn-sm" type="submit">Add Comment</button>
-                        </form>
                     </div>
                     <div className="col-md-5 comments">
                         <h4 className="comments-title">
@@ -95,7 +97,7 @@ export const CurrentPost = () => {
                         </h4>
                         <ul className="commets-section">
                             {comments.length > 0
-                                ? comments.map(comment => <Comment key={comments.id} comment={comment} />)
+                                ? comments.map(comment => <Comment key={comment.id} comment={comment} />)
                                 : <p>No comment in database!</p>}
                         </ul>
                     </div>
