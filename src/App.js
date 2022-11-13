@@ -71,12 +71,12 @@ function App() {
           <main className='site__content'>
             <Routes>
               <Route path='/' element={<Posts />} />
-              <Route path='/myposts' element={<MyPosts />} />
+              <Route path='/myposts' element={loggedUser ? <MyPosts /> : <Posts />} />
               <Route path='/posts/:postId' element={<CurrentPost />} />
-              <Route path='/create' element={<Create />} />
+              <Route path='/create' element={loggedUser ? <Create /> : <Posts />} />
               <Route path='/edit/:postId' element={<Edit />} />
-              <Route path='/register' element={<Register />} />
-              <Route path='/login' element={<Login />} />
+              <Route path='/register' element={!loggedUser ? <Register /> : <Posts />} />
+              <Route path='/login' element={!loggedUser ? <Login /> : <Posts />} />
             </Routes>
           </main>
         </PostContext.Provider>
