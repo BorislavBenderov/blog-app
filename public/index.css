@@ -625,9 +625,15 @@ pre code {
   margin: 10px;
   padding: 10px;
 }
+
 .comments-box>h6 {
   text-align: left;
   color: white;
+}
+
+.comments-button {
+  width: 100px;
+  margin: 10px;
 }
 
 @media (min-width: 576px) {
