@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 export const Post = ({post}) => {
+
     return (
         <div className="row justify-content-between align-items-center">
             <div className="col-md-6">
