@@ -6,7 +6,8 @@ export const Posts = () => {
     const { posts } = useContext(PostContext);
     const [search, setSearch] = useState('');
     const searchedPosts = posts.filter(post => post.title.toLowerCase().includes(search.toLowerCase())
-        || post.description.toLowerCase().includes(search.toLowerCase()));
+        || post.description.toLowerCase().includes(search.toLowerCase())
+        || post.author.toLowerCase().includes(search.toLowerCase()));
 
     return (
         <section>

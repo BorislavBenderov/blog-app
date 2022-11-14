@@ -15,6 +15,9 @@ export const Post = ({post}) => {
                     {post.title}
                 </h6>
                 <p>
+                    Author: {post.author}
+                </p>
+                <p>
                     {post.description}
                 </p>
                 <Link className="btn btn-outline-primary btn-sm" to={`/posts/${post.id}`}>Read</Link>

@@ -11,6 +11,7 @@ export const Edit = () => {
     const currentPost = posts.find(post => post.id === postId);
 
     const [values, setValues] = useState({
+        author: currentPost.author,
         title: currentPost.title,
         description: currentPost.description,
         imageUrl: currentPost.imageUrl,
@@ -44,6 +45,8 @@ export const Edit = () => {
     return (
         <form className="auth" onSubmit={onEdit}>
             <h3>Edit Post</h3>
+            <label htmlFor="author"></label>
+            <input type="text" placeholder="Author" id="author" name="author" value={values.author} onChange={changeHandler}/>
             <label htmlFor="title"></label>
             <input type="text" placeholder="Title" id="title" name="title" value={values.title} onChange={changeHandler}/>
             <label htmlFor="description"></label>

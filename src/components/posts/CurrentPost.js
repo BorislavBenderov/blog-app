@@ -97,6 +97,9 @@ export const CurrentPost = () => {
                         </div>
                     </div>
                     <div className="col-md-5">
+                    <p>
+                            Author: {currentPost.author}
+                        </p>
                         <h6 className="title mb-3">
                             {currentPost.title}
                         </h6>

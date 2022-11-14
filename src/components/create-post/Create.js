@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { PostContext } from "../../contexts/PostContext";
-import { addDoc } from "firebase/firestore";
+import { addDoc, serverTimestamp } from "firebase/firestore";
 
 export const Create = () => {
     const { auth } = useContext(AuthContext);
@@ -15,6 +15,7 @@ export const Create = () => {
         const bookData = Object.fromEntries(new FormData(e.target));
         const allBookData = {
             ...bookData,
+            timestamp: serverTimestamp(),
             ownerId: auth.currentUser.uid,
             comments: [],
             likes: []
@@ -32,6 +33,8 @@ export const Create = () => {
     return (
         <form className="auth" onSubmit={onCreate}>
             <h3>Add Post</h3>
+            <label htmlFor="author"></label>
+            <input type="text" placeholder="Author" id="author" name="author" />
             <label htmlFor="title"></label>
             <input type="text" placeholder="Title" id="title" name="title" />
             <label htmlFor="description"></label>
