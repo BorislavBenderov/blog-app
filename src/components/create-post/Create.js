@@ -15,7 +15,9 @@ export const Create = () => {
         const bookData = Object.fromEntries(new FormData(e.target));
         const allBookData = {
             ...bookData,
-            ownerId: auth.currentUser.uid
+            ownerId: auth.currentUser.uid,
+            comments: [],
+            likes: []
         };
 
         addDoc(collectionRef, allBookData)
