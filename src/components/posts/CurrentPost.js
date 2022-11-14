@@ -25,6 +25,8 @@ export const CurrentPost = () => {
 
     const currentPost = posts.find(post => post.id === postId);
 
+    const currentPostComments = comments.filter(comment => comment.commentId === postId);
+
     let isOwner = null;
 
     if (auth.currentUser) {
@@ -51,6 +53,7 @@ export const CurrentPost = () => {
 
         await addDoc(collection(database, 'comments'), {
             text: input,
+            commentId: postId,
             uid: auth.currentUser.uid,
             email: auth.currentUser.email,
             timestamp: serverTimestamp()
@@ -126,8 +129,8 @@ export const CurrentPost = () => {
                             Comments
                         </h4>
                         <ul className="comments-section">
-                            {comments.length > 0
-                                ? comments.map(comment => <Comment key={comment.id} comment={comment} />)
+                            {currentPostComments.length > 0
+                                ? currentPostComments.map(comment => <Comment key={comment.id} comment={comment} />)
                                 : <p>No comment in database!</p>}
                         </ul>
                     </div>
