@@ -1,18 +1,23 @@
 import { Comment } from "./Comment";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { PostContext } from '../../contexts/PostContext';
 import { AuthContext } from '../../contexts/AuthContext';
 import { useContext, useEffect, useState } from "react";
 import { doc, deleteDoc, onSnapshot, orderBy, query, collection, serverTimestamp, addDoc, updateDoc, arrayRemove, arrayUnion } from 'firebase/firestore';
 import { database } from '../../firebaseConfig';
 
 export const CurrentPost = () => {
+    const [currentPost, setCurrentPost] = useState([]);
     const [comments, setComments] = useState([]);
     const [input, setInput] = useState([]);
-    const { posts } = useContext(PostContext);
     const { auth, loggedUser } = useContext(AuthContext);
     const { postId } = useParams();
     const navigate = useNavigate();
+    
+    useEffect(() => {
+        onSnapshot(doc(database, 'posts', postId), (snapshot) => {
+            setCurrentPost({...snapshot.data(), id: snapshot.id })
+        })
+    }, []);
 
     useEffect(() => {
         const q = query(collection(database, 'comments'), orderBy('timestamp'));
@@ -22,8 +27,6 @@ export const CurrentPost = () => {
             }));
         });
     }, []);
-
-    const currentPost = posts.find(post => post.id === postId);
 
     const currentPostComments = comments.filter(comment => comment.commentId === postId);
 
@@ -116,7 +119,7 @@ export const CurrentPost = () => {
                                 ? <div className="like-container">
                                     <i className={`fa fa-heart${!currentPost.likes?.includes(currentPost.ownerId) ? '-o' : ''} fa-lg`}
                                         style={{ cursor: 'pointer', color: currentPost.likes?.includes(currentPost.ownerId) ? 'red' : null }}
-                                        onClick={likeHandler}>{currentPost.likes.length}</i>
+                                        onClick={likeHandler}>{currentPost.likes ? currentPost.likes.length : 0}</i>
                                 </div>
                                 : ''}
                         {loggedUser

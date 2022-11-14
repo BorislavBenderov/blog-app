@@ -17,7 +17,6 @@ export const Create = () => {
             ...bookData,
             timestamp: serverTimestamp(),
             ownerId: auth.currentUser.uid,
-            comments: [],
             likes: []
         };
 

@@ -3,7 +3,7 @@ import { signInWithEmailAndPassword, setPersistence, browserSessionPersistence, 
 import { AuthContext } from './contexts/AuthContext';
 import { PostContext } from './contexts/PostContext';
 import { database } from './firebaseConfig';
-import { collection, onSnapshot } from 'firebase/firestore';
+import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 
 import { Nav } from './components/nav/Nav';
 import { Header } from './components/header/Header';
@@ -25,7 +25,8 @@ function App() {
   const collectionRef = collection(database, 'posts');
 
   useEffect(() => {
-    onSnapshot(collectionRef, (data) => {
+    const q = query(collectionRef, orderBy("timestamp", "desc"));
+    onSnapshot(q, (data) => {
       setPosts(data.docs.map(item => {
         return { ...item.data(), id: item.id };
       }))
