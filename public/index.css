@@ -640,6 +640,49 @@ pre code {
   color: black;
 }
 
+.search {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 10px;
+  border-color: var(--primary);
+  color: black;
+}
+
+.search > input {
+  background-color: var(--secondary);
+  color: var(--primary);
+}
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.pagination button {
+  width: 40px;
+  height: 40px;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 16px;
+  margin: 0 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: var(--secondary);
+  color: #ffe400;
+  border-color: #eee;
+}
+
+.pagination button.active {
+  font-weight: 900;
+  border-color: #101010;
+  background: #ffe400;
+  color: #101010;
+}
+
 @media (min-width: 576px) {
   .container {
     max-width: 540px;
