@@ -604,11 +604,11 @@ pre code {
 
 .comments {
   background-color: var(--primary);
-  border-radius: 16px;
 }
 
 .comments-title {
   text-align: center;
+  padding-top: 10px;
 }
 
 .comments-section {
@@ -621,7 +621,6 @@ pre code {
 
 .comments-box {
   background-color: var(--secondary);
-  border-radius: 16px;
   margin: 10px;
   padding: 10px;
 }
@@ -631,27 +630,43 @@ pre code {
   color: white;
 }
 
+.comments-box>p {
+  color: white;
+}
+
 .comments-button {
   width: 100px;
   margin: 10px;
 }
 
-.comment-form > input {
-  color: black;
-}
-
-.search {
+.comment-form {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.comment-form > input {
+  color: var(--primary);
+  background-color: var(--secondary);
+  padding: 5px;
+}
+
+.search-conteiner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: right;
   margin-bottom: 10px;
   border-color: var(--primary);
   color: black;
 }
 
-.search > input {
+.search-bar {
+  border-color: var(--primary);
   background-color: var(--secondary);
   color: var(--primary);
+  padding: 5px;
 }
 
 .pagination {
@@ -681,6 +696,10 @@ pre code {
   border-color: #101010;
   background: #ffe400;
   color: #101010;
+}
+
+.delete {
+  margin-left: 10px;
 }
 
 @media (min-width: 576px) {
@@ -725,6 +744,7 @@ pre code {
   flex-wrap: wrap;
   margin-right: -15px;
   margin-left: -15px;
+  margin-bottom: 20px;
 }
 
 
@@ -12420,6 +12440,10 @@ nav.page-navbar.affix .navbar-brand .text-dark {
   font-size: 2.4rem;
   font-weight: bold;
   opacity: .8;
+}
+
+p {
+  font-size: 20px;
 }
 
 .header-mini {

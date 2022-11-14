@@ -114,7 +114,7 @@ export const CurrentPost = () => {
                         </p>
                         {isOwner
                             ? <> <Link className="btn btn-outline-primary btn-sm" to={`/edit/${postId}`}>Edit</Link>
-                                <a className="btn btn-outline-primary btn-sm" onClick={(e) => onDelete(postId, e)}>Delete</a> </>
+                                <a className="btn btn-outline-primary btn-sm delete" onClick={(e) => onDelete(postId, e)}>Delete</a> </>
                             : loggedUser
                                 ? <div className="like-container">
                                     <i className={`fa fa-heart${!currentPost.likes?.includes(currentPost.ownerId) ? '-o' : ''} fa-lg`}
@@ -124,8 +124,8 @@ export const CurrentPost = () => {
                                 : ''}
                         {loggedUser
                             ? <form className="comment-form" onSubmit={onCreateComment}>
-                                <input type="text" name="comment" id="comment" value={input} onChange={(e) => setInput(e.target.value)} />
-                                <button className="btn btn-outline-primary btn-sm" type="submit">Add Comment</button>
+                                <input type="text" placeholder="Add a comment" name="comment" id="comment" value={input} onChange={(e) => setInput(e.target.value)} />
+                                <button className="btn btn-outline-primary btn-sm" type="submit">Add</button>
                             </form>
                             : ''}
 
