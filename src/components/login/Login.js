@@ -1,10 +1,13 @@
-import { AuthContext } from '../../contexts/AuthContext';
+import { setPersistence, signInWithEmailAndPassword, browserSessionPersistence } from 'firebase/auth';
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthContext';
 import './login.css';
 
 export const Login = () => {
-    const { auth, onLogin } = useContext(AuthContext);
-
+    const { auth } = useContext(AuthContext);
+    const navigate = useNavigate();
+    
     const onSubmit = (e) => {
         e.preventDefault();
 
@@ -17,7 +20,14 @@ export const Login = () => {
             return;
         }
 
-        onLogin(auth, email, password);
+        setPersistence(auth, browserSessionPersistence)
+            .then(() => {
+                signInWithEmailAndPassword(auth, email, password);
+            })
+            .catch((err) => {
+                alert(err.message);
+            });
+        navigate('/');
     }
 
     return (

@@ -1,8 +1,11 @@
-import { useContext } from "react";
-import { AuthContext } from "../../contexts/AuthContext";
+import { setPersistence, createUserWithEmailAndPassword, browserSessionPersistence } from 'firebase/auth';
+import { AuthContext } from '../../contexts/AuthContext';
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const Register = () => {
-    const { auth, onRegister } = useContext(AuthContext);
+    const { auth } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -22,7 +25,14 @@ export const Register = () => {
             return;
         }
 
-        onRegister(auth, email, password);
+        setPersistence(auth, browserSessionPersistence)
+            .then(() => {
+                createUserWithEmailAndPassword(auth, email, password);
+            })
+            .catch((err) => {
+                alert(err.message);
+            });
+        navigate('/');
     }
 
     return (

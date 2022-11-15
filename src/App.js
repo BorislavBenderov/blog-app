@@ -1,10 +1,8 @@
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword, setPersistence, browserSessionPersistence, getAuth, onAuthStateChanged, createUserWithEmailAndPassword } from 'firebase/auth';
-import { AuthContext } from './contexts/AuthContext';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { PostContext } from './contexts/PostContext';
 import { database } from './firebaseConfig';
 import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
-
+import { AuthContext } from './contexts/AuthContext';
 import { Nav } from './components/nav/Nav';
 import { Header } from './components/header/Header';
 import { Login } from './components/login/Login';
@@ -15,13 +13,12 @@ import { CurrentPost } from './components/posts/CurrentPost';
 import { Create } from './components/create-post/Create';
 import { Edit } from './components/edit-post/Edit';
 import { Footer } from './components/footer/Footer';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 function App() {
   const [posts, setPosts] = useState([]);
-  const [loggedUser, setLoggedUser] = useState(null);
-  const navigate = useNavigate();
-  const auth = getAuth();
+  const { loggedUser } = useContext(AuthContext);
+  
   const collectionRef = collection(database, 'posts');
 
   useEffect(() => {
@@ -33,39 +30,9 @@ function App() {
     })
   }, []);
 
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setLoggedUser(user);
-      }
-    })
-  }, []);
-
-  const onLogin = (auth, email, password) => {
-    setPersistence(auth, browserSessionPersistence)
-      .then(() => {
-        signInWithEmailAndPassword(auth, email, password);
-      })
-      .catch((err) => {
-        alert(err.message);
-      });
-    navigate('/');
-  }
-
-  const onRegister = (auth, email, password) => {
-    setPersistence(auth, browserSessionPersistence)
-      .then(() => {
-        createUserWithEmailAndPassword(auth, email, password);
-      })
-      .catch((err) => {
-        alert(err.message);
-      });
-    navigate('/');
-  }
-
   return (
     <>
-      <AuthContext.Provider value={{ auth, onLogin, onRegister, setLoggedUser, loggedUser }}>
+      <BrowserRouter>
         <Nav />
         <Header />
         <PostContext.Provider value={{ posts, collectionRef }}>
@@ -82,7 +49,7 @@ function App() {
           </main>
         </PostContext.Provider>
         <Footer />
-      </AuthContext.Provider>
+      </BrowserRouter>
     </>
   );
 }

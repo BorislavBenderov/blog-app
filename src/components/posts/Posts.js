@@ -19,7 +19,13 @@ export const Posts = () => {
         <section>
             <div className="container">
                 {currentPage === 1
-                    ? <div className="search-conteiner"> <input className="search-bar" type="search" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} /> </div>
+                    ? <div className="search-conteiner">
+                        <input
+                            className="search-bar"
+                            type="search"
+                            placeholder="Search"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)} /> </div>
                     : ''}
                 {posts.length > 0
                     ? currentPosts.map(post => <Post key={post.id} post={post} currentPage={currentPage} />)

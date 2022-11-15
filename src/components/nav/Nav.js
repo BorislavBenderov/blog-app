@@ -1,14 +1,15 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { signOut } from "firebase/auth";
 
 export const Nav = () => {
-    const { auth, loggedUser, setLoggedUser } = useContext(AuthContext);
+    const { auth, loggedUser } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const onLogout = () => {
         signOut(auth).then(() => {
-            setLoggedUser(null);
+            navigate('/');
         }).catch((err) => {
             alert(err.message);
         });

@@ -12,10 +12,10 @@ export const CurrentPost = () => {
     const { auth, loggedUser } = useContext(AuthContext);
     const { postId } = useParams();
     const navigate = useNavigate();
-    
+
     useEffect(() => {
         onSnapshot(doc(database, 'posts', postId), (snapshot) => {
-            setCurrentPost({...snapshot.data(), id: snapshot.id })
+            setCurrentPost({ ...snapshot.data(), id: snapshot.id })
         })
     }, []);
 
@@ -100,7 +100,7 @@ export const CurrentPost = () => {
                         </div>
                     </div>
                     <div className="col-md-5">
-                    <p>
+                        <p>
                             Author: {currentPost.author}
                         </p>
                         <h6 className="title mb-3">
@@ -124,7 +124,13 @@ export const CurrentPost = () => {
                                 : ''}
                         {loggedUser
                             ? <form className="comment-form" onSubmit={onCreateComment}>
-                                <input type="text" placeholder="Add a comment" name="comment" id="comment" value={input} onChange={(e) => setInput(e.target.value)} />
+                                <input
+                                    type="text"
+                                    placeholder="Add a comment"
+                                    name="comment"
+                                    id="comment"
+                                    value={input}
+                                    onChange={(e) => setInput(e.target.value)} />
                                 <button className="btn btn-outline-primary btn-sm" type="submit">Add</button>
                             </form>
                             : ''}
