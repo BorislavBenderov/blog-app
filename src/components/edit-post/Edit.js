@@ -21,24 +21,43 @@ export const Edit = () => {
     const changeHandler = (e) => {
         setValues(oldState => ({
             ...oldState,
-            [e.target.name]:e.target.value
+            [e.target.name]: e.target.value
         }));
     };
 
     const onEdit = (e) => {
         e.preventDefault();
 
-        const bookData = Object.fromEntries(new FormData(e.target));
+        const formData = new FormData(e.target);
+
+        const author = formData.get('author');
+        const title = formData.get('title');
+        const description = formData.get('description');
+        const imageUrl = formData.get('imageUrl');
+        const content = formData.get('content');
+
+        if (author === '' || title === '' || description === '' || imageUrl === '' || content === '') {
+            alert('Please fill all the fields');
+            return;
+        }
+
+        const bookData = {
+            author,
+            title,
+            description,
+            imageUrl,
+            content
+        };
 
         const docToUpdate = doc(database, 'posts', postId);
 
         updateDoc(docToUpdate, bookData)
-        .then(() => {
-            navigate(`/posts/${postId}`);
-        })
-        .catch((err) => {
-            alert(err.message);
-        });
+            .then(() => {
+                navigate(`/posts/${postId}`);
+            })
+            .catch((err) => {
+                alert(err.message);
+            });
 
     };
 
@@ -46,15 +65,15 @@ export const Edit = () => {
         <form className="auth" onSubmit={onEdit}>
             <h3>Edit Post</h3>
             <label htmlFor="author"></label>
-            <input type="text" placeholder="Author" id="author" name="author" value={values.author} onChange={changeHandler}/>
+            <input type="text" placeholder="Author" id="author" name="author" value={values.author} onChange={changeHandler} />
             <label htmlFor="title"></label>
-            <input type="text" placeholder="Title" id="title" name="title" value={values.title} onChange={changeHandler}/>
+            <input type="text" placeholder="Title" id="title" name="title" value={values.title} onChange={changeHandler} />
             <label htmlFor="description"></label>
-            <input type="text" placeholder="Description" id="description" name="description" value={values.description} onChange={changeHandler}/>
+            <input type="text" placeholder="Description" id="description" name="description" value={values.description} onChange={changeHandler} />
             <label htmlFor="imageUrl"></label>
-            <input type="text" placeholder="Image" id="imageUrl" name="imageUrl" value={values.imageUrl} onChange={changeHandler}/>
+            <input type="text" placeholder="Image" id="imageUrl" name="imageUrl" value={values.imageUrl} onChange={changeHandler} />
             <label htmlFor="content"></label>
-            <textarea type="text" placeholder="Content" id="content" name="content" value={values.content} onChange={changeHandler}/>
+            <textarea type="text" placeholder="Content" id="content" name="content" value={values.content} onChange={changeHandler} />
             <button type="submit">Edit Post</button>
         </form>
     );

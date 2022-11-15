@@ -12,9 +12,25 @@ export const Create = () => {
     const onCreate = (e) => {
         e.preventDefault();
 
-        const bookData = Object.fromEntries(new FormData(e.target));
+        const formData = new FormData(e.target);
+
+        const author = formData.get('author');
+        const title = formData.get('title');
+        const description = formData.get('description');
+        const imageUrl = formData.get('imageUrl');
+        const content = formData.get('content');
+
+        if (author === '' || title === '' || description === '' || imageUrl === '' || content === '') {
+            alert('Please fill all the fields');
+            return;
+        }
+
         const allBookData = {
-            ...bookData,
+            author,
+            title,
+            description,
+            imageUrl,
+            content,
             timestamp: serverTimestamp(),
             ownerId: auth.currentUser.uid,
             likes: []
