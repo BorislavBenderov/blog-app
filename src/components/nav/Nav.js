@@ -55,6 +55,11 @@ export const Nav = () => {
                             </>
                             : <>
                                 <li className="nav-item">
+                                    <Link className="nav-link" to='/'>
+                                        {loggedUser.email}
+                                    </Link>
+                                </li>
+                                <li className="nav-item">
                                     <Link className="nav-link" to="/myposts">
                                         My Posts
                                     </Link>

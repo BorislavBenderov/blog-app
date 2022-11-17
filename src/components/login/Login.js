@@ -1,4 +1,4 @@
-import { setPersistence, signInWithEmailAndPassword, browserSessionPersistence } from 'firebase/auth';
+import { setPersistence, signInWithEmailAndPassword, browserLocalPersistence } from 'firebase/auth';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
@@ -20,14 +20,16 @@ export const Login = () => {
             return;
         }
 
-        setPersistence(auth, browserSessionPersistence)
+        setPersistence(auth, browserLocalPersistence)
             .then(() => {
-                signInWithEmailAndPassword(auth, email, password);
-            })
-            .catch((err) => {
-                alert(err.message);
-            });
-        navigate('/');
+                signInWithEmailAndPassword(auth, email, password)
+                .then(() => {
+                    navigate('/');
+                })
+                .catch((err) => {
+                    alert(err.message);
+                });
+            })  
     }
 
     return (

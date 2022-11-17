@@ -66,9 +66,9 @@ export const CurrentPost = () => {
     }
 
     const likeHandler = () => {
-        if (currentPost.likes?.includes(currentPost.ownerId)) {
+        if (currentPost.likes?.includes(loggedUser.uid)) {
             updateDoc(doc(database, 'posts', postId), {
-                likes: arrayRemove(currentPost.ownerId)
+                likes: arrayRemove(loggedUser.uid)
             })
                 .then(() => {
                     console.log('unliked');
@@ -78,7 +78,7 @@ export const CurrentPost = () => {
                 })
         } else {
             updateDoc(doc(database, 'posts', postId), {
-                likes: arrayUnion(currentPost.ownerId)
+                likes: arrayUnion(loggedUser.uid)
             })
                 .then(() => {
                     console.log('liked');
@@ -115,17 +115,19 @@ export const CurrentPost = () => {
                         {isOwner
                             ? <> <Link className="btn btn-outline-primary btn-sm" to={`/edit/${postId}`}>Edit</Link>
                                 <a className="btn btn-outline-primary btn-sm delete" onClick={(e) => onDelete(postId, e)}>Delete</a> </>
-                            : loggedUser
-                                ? <div className="like-container">
-                                    <i className={`fa fa-heart${!currentPost.likes?.includes(currentPost.ownerId) ? '-o' : ''} fa-lg`}
-                                        style={{ cursor: 'pointer', color: currentPost.likes?.includes(currentPost.ownerId) ? 'red' : null }}
-                                        onClick={likeHandler}>{currentPost.likes ? currentPost.likes.length : 0}</i>
-                                </div>
-                                : ''}
+                            : ''}
+                        {loggedUser
+                            ? <div className="like-container">
+                                <i className={`fa fa-heart${!currentPost.likes?.includes(loggedUser.uid) ? '-o' : ''} fa-lg`}
+                                    style={{ cursor: 'pointer', color: currentPost.likes?.includes(loggedUser.uid) ? 'red' : null }}
+                                    onClick={likeHandler}>{currentPost.likes ? currentPost.likes.length : 0}</i>
+                            </div>
+                            : <i>Likes: {currentPost.likes ? currentPost.likes.length : 0}</i>}
                         {loggedUser
                             ? <form className="comment-form" onSubmit={onCreateComment}>
-                                <input
+                                <textarea
                                     type="text"
+                                    rows='1'
                                     placeholder="Add a comment"
                                     name="comment"
                                     id="comment"

@@ -647,10 +647,9 @@ pre code {
   gap: 10px;
 }
 
-.comment-form > input {
+.comment-form > textarea {
   color: var(--primary);
   background-color: var(--secondary);
-  padding: 5px;
 }
 
 .search-conteiner {

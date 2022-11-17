@@ -1,4 +1,4 @@
-import { setPersistence, createUserWithEmailAndPassword, browserSessionPersistence } from 'firebase/auth';
+import { setPersistence, createUserWithEmailAndPassword, browserLocalPersistence } from 'firebase/auth';
 import { AuthContext } from '../../contexts/AuthContext';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -25,14 +25,16 @@ export const Register = () => {
             return;
         }
 
-        setPersistence(auth, browserSessionPersistence)
+        setPersistence(auth, browserLocalPersistence)
             .then(() => {
-                createUserWithEmailAndPassword(auth, email, password);
+                createUserWithEmailAndPassword(auth, email, password)
+                    .then(() => {
+                        navigate('/');
+                    })
+                    .catch((err) => {
+                        alert(err.message);
+                    });
             })
-            .catch((err) => {
-                alert(err.message);
-            });
-        navigate('/');
     }
 
     return (
