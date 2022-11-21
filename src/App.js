@@ -1,5 +1,4 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import { AuthContext } from './contexts/AuthContext';
 import { Nav } from './components/nav/Nav';
 import { Header } from './components/header/Header';
 import { Login } from './components/login/Login';
@@ -10,27 +9,29 @@ import { CurrentPost } from './components/posts/CurrentPost';
 import { Create } from './components/create-post/Create';
 import { Edit } from './components/edit-post/Edit';
 import { Footer } from './components/footer/Footer';
-import { useContext } from 'react';
+import { NotFound } from './components/not-found/NotFound';
+import { ProtectedRoutes } from './ProtectedRoutes';
 
-function App() {  
-  const { loggedUser } = useContext(AuthContext);
-  
+function App() {
   return (
     <>
       <BrowserRouter>
         <Nav />
         <Header />
-          <main className='site__content'>
-            <Routes>
-              <Route path='/' element={<Posts />} />
-              <Route path='/myposts' element={loggedUser ? <MyPosts /> : <Posts />} />
+        <main className='site__content'>
+          <Routes>
+          <Route path='*' element={<NotFound />} />
+            <Route path='/' element={<Posts />} />
+            <Route element={<ProtectedRoutes />}>
+              <Route path='/myposts' element={<MyPosts />} />
               <Route path='/posts/:postId' element={<CurrentPost />} />
-              <Route path='/create' element={loggedUser ? <Create /> : <Posts />} />
+              <Route path='/create' element={<Create />} />
               <Route path='/edit/:postId' element={<Edit />} />
-              <Route path='/register' element={!loggedUser ? <Register /> : <Posts />} />
-              <Route path='/login' element={!loggedUser ? <Login /> : <Posts />} />
-            </Routes>
-          </main>
+            </Route>
+            <Route path='/register' element={<Register />} />
+            <Route path='/login' element={<Login />} />
+          </Routes>
+        </main>
         <Footer />
       </BrowserRouter>
     </>

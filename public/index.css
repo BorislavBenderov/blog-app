@@ -1,17 +1,4 @@
 @charset "UTF-8";
-/*!
-=========================================================
-* Creative Design Landing page V 1.0
-=========================================================
-
-* Copyright: 2019 DevCRUD (https://devcrud.com)
-* Licensed: (https://devcrud.com/licenses)
-* Coded by www.devcrud.com
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
 @import url("https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i&display=swap");
 
 :root {
@@ -12709,4 +12696,16 @@ section.height-auto {
 
 .testmonial-wrapper .title {
   margin-top: -40px;
+}
+
+
+.not-found {
+  position: relative;
+}
+
+.not-found-info {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%);
 }
