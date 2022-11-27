@@ -20,11 +20,11 @@ function App() {
         <Header />
         <main className='site__content'>
           <Routes>
-          <Route path='*' element={<NotFound />} />
+            <Route path='*' element={<NotFound />} />
             <Route path='/' element={<Posts />} />
+            <Route path='/posts/:postId' element={<CurrentPost />} />
             <Route element={<ProtectedRoutes />}>
               <Route path='/myposts' element={<MyPosts />} />
-              <Route path='/posts/:postId' element={<CurrentPost />} />
               <Route path='/create' element={<Create />} />
               <Route path='/edit/:postId' element={<Edit />} />
             </Route>
