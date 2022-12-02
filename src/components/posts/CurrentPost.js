@@ -1,15 +1,15 @@
-import { Comment } from "./Comment";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { AuthContext } from '../../contexts/AuthContext';
 import { useContext, useEffect, useState } from "react";
-import { doc, deleteDoc, onSnapshot, orderBy, query, collection, serverTimestamp, addDoc, updateDoc, arrayRemove, arrayUnion } from 'firebase/firestore';
+import { doc, deleteDoc, onSnapshot } from 'firebase/firestore';
 import { database } from '../../firebaseConfig';
 import { UserContext } from "../../contexts/UserContext";
+import { Likes } from "./Likes";
+import { CreateComment } from "./comments/CreateComment";
+import { Comments } from "./comments/Comments";
 
 export const CurrentPost = () => {
     const [currentPost, setCurrentPost] = useState([]);
-    const [comments, setComments] = useState([]);
-    const [input, setInput] = useState([]);
     const { auth, loggedUser } = useContext(AuthContext);
     const { users } = useContext(UserContext);
     const { postId } = useParams();
@@ -21,17 +21,6 @@ export const CurrentPost = () => {
             setCurrentPost({ ...snapshot.data(), id: snapshot.id })
         })
     }, []);
-
-    useEffect(() => {
-        const q = query(collection(database, 'comments'), orderBy('timestamp'));
-        onSnapshot(q, (querySnapshot) => {
-            setComments(querySnapshot.docs.map(item => {
-                return { ...item.data(), id: item.id }
-            }));
-        });
-    }, []);
-
-    const currentPostComments = comments.filter(comment => comment.commentId === postId);
 
     let isOwner = null;
 
@@ -46,49 +35,6 @@ export const CurrentPost = () => {
             e.preventDefault();
             navigate('/');
             await deleteDoc(doc(database, 'posts', id));
-        }
-    }
-
-    const onCreateComment = async (e) => {
-        e.preventDefault();
-
-        if (input === '') {
-            alert('Please enter a valid comment');
-            return;
-        }
-
-        await addDoc(collection(database, 'comments'), {
-            text: input,
-            commentId: postId,
-            uid: auth.currentUser.uid,
-            email: auth.currentUser.email,
-            timestamp: serverTimestamp()
-        });
-
-        setInput('');
-    }
-
-    const likeHandler = () => {
-        if (currentPost.likes?.includes(loggedUser.uid)) {
-            updateDoc(doc(database, 'posts', postId), {
-                likes: arrayRemove(loggedUser.uid)
-            })
-                .then(() => {
-                    console.log('unliked');
-                })
-                .catch((err) => {
-                    alert(err.message);
-                })
-        } else {
-            updateDoc(doc(database, 'posts', postId), {
-                likes: arrayUnion(loggedUser.uid)
-            })
-                .then(() => {
-                    console.log('liked');
-                })
-                .catch((err) => {
-                    alert(err.message);
-                })
         }
     }
 
@@ -120,36 +66,16 @@ export const CurrentPost = () => {
                                 <a className="btn btn-outline-primary btn-sm delete" onClick={(e) => onDelete(postId, e)}>Delete</a> </>
                             : ''}
                         {loggedUser
-                            ? <div className="like-container">
-                                <i className={`fa fa-heart${!currentPost.likes?.includes(loggedUser.uid) ? '-o' : ''} fa-lg`}
-                                    style={{ cursor: 'pointer', color: currentPost.likes?.includes(loggedUser.uid) ? 'red' : null }}
-                                    onClick={likeHandler}>{currentPost.likes ? currentPost.likes.length : 0}</i>
-                            </div>
+                            ? <><Likes currentPost={currentPost} />
+                                <CreateComment currentPost={currentPost} /></>
                             : <i>Likes: {currentPost.likes ? currentPost.likes.length : 0}</i>}
-                        {loggedUser
-                            ? <form className="comment-form" onSubmit={onCreateComment}>
-                                <textarea
-                                    type="text"
-                                    rows='1'
-                                    placeholder="Add a comment"
-                                    name="comment"
-                                    id="comment"
-                                    value={input}
-                                    onChange={(e) => setInput(e.target.value)} />
-                                <button className="btn btn-outline-primary btn-sm" type="submit">Add</button>
-                            </form>
-                            : ''}
 
                     </div>
                     <div className="col-md-5 comments">
                         <h4 className="comments-title">
                             Comments
                         </h4>
-                        <ul className="comments-section">
-                            {currentPostComments.length > 0
-                                ? currentPostComments.map(comment => <Comment key={comment.id} comment={comment} />)
-                                : <p>No comment in database!</p>}
-                        </ul>
+                        <Comments currentPost={currentPost}/>
                     </div>
                 </div>
             </div>

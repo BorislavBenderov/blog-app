@@ -1,6 +1,6 @@
 import { doc, deleteDoc } from 'firebase/firestore';
-import { database } from '../../firebaseConfig';
-import { AuthContext } from '../../contexts/AuthContext';
+import { database } from '../../../firebaseConfig';
+import { AuthContext } from '../../../contexts/AuthContext';
 import { useContext } from 'react';
 
 export const Comment = ({ comment }) => {
