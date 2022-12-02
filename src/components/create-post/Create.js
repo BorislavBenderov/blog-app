@@ -14,19 +14,17 @@ export const Create = () => {
 
         const formData = new FormData(e.target);
 
-        const author = formData.get('author');
         const title = formData.get('title');
         const description = formData.get('description');
         const imageUrl = formData.get('imageUrl');
         const content = formData.get('content');
 
-        if (author === '' || title === '' || description === '' || imageUrl === '' || content === '') {
+        if (title === '' || description === '' || imageUrl === '' || content === '') {
             alert('Please fill all the fields');
             return;
         }
 
         const allBookData = {
-            author,
             title,
             description,
             imageUrl,
@@ -48,8 +46,6 @@ export const Create = () => {
     return (
         <form className="auth" onSubmit={onCreate}>
             <h3>Add Post</h3>
-            <label htmlFor="author"></label>
-            <input type="text" placeholder="Author" id="author" name="author" />
             <label htmlFor="title"></label>
             <input type="text" placeholder="Title" id="title" name="title" />
             <label htmlFor="description"></label>

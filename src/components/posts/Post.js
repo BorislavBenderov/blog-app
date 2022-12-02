@@ -1,7 +1,10 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../contexts/UserContext";
 
 export const Post = ({post}) => {
-
+    const { users } = useContext(UserContext);
+    const currentUser = users.find(user => user.uid === post.ownerId);
     return (
         <div className="row justify-content-between align-items-center">
             <div className="col-md-6">
@@ -15,7 +18,7 @@ export const Post = ({post}) => {
                     {post.title}
                 </h6>
                 <p>
-                    Author: {post.author}
+                    Author: {currentUser.username}
                 </p>
                 <p>
                     {post.description}

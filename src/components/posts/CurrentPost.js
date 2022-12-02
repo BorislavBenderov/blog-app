@@ -4,14 +4,17 @@ import { AuthContext } from '../../contexts/AuthContext';
 import { useContext, useEffect, useState } from "react";
 import { doc, deleteDoc, onSnapshot, orderBy, query, collection, serverTimestamp, addDoc, updateDoc, arrayRemove, arrayUnion } from 'firebase/firestore';
 import { database } from '../../firebaseConfig';
+import { UserContext } from "../../contexts/UserContext";
 
 export const CurrentPost = () => {
     const [currentPost, setCurrentPost] = useState([]);
     const [comments, setComments] = useState([]);
     const [input, setInput] = useState([]);
     const { auth, loggedUser } = useContext(AuthContext);
+    const { users } = useContext(UserContext);
     const { postId } = useParams();
     const navigate = useNavigate();
+    const currentUser = users.find(user => user.uid === currentPost.ownerId);
 
     useEffect(() => {
         onSnapshot(doc(database, 'posts', postId), (snapshot) => {
@@ -101,7 +104,7 @@ export const CurrentPost = () => {
                     </div>
                     <div className="col-md-5">
                         <p>
-                            Author: {currentPost.author}
+                            Author: {currentUser?.username}
                         </p>
                         <h6 className="title mb-3">
                             {currentPost.title}
