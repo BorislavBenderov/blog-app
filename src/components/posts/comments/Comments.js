@@ -21,7 +21,7 @@ export const Comments = ({currentPost}) => {
         <ul className="comments-section">
             {currentPostComments.length > 0
                 ? currentPostComments.map(comment => <Comment key={comment.id} comment={comment} />)
-                : <p>No comment in database!</p>}
+                : <p className='no-comments'>No comments for current post!</p>}
         </ul>
     );
 }

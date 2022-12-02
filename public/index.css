@@ -12169,6 +12169,7 @@ section.height-auto {
   width: 90%;
   border-radius: 0.2rem;
   box-shadow: 0 3px 80px rgba(173, 181, 189, 0.5), 0 0 10px rgba(173, 181, 189, 0.7) !important;
+  height: 360px;
 }
 
 @media (max-width: 767.98px) {
@@ -12191,4 +12192,8 @@ section.height-auto {
   top: 50%;
   left: 50%;
   transform: translate(-50%);
+}
+
+.no-comments {
+  text-align: center;
 }
