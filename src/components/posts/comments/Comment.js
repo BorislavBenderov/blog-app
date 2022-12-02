@@ -2,9 +2,13 @@ import { doc, deleteDoc } from 'firebase/firestore';
 import { database } from '../../../firebaseConfig';
 import { AuthContext } from '../../../contexts/AuthContext';
 import { useContext } from 'react';
+import { UserContext } from '../../../contexts/UserContext';
 
 export const Comment = ({ comment }) => {
     const { auth } = useContext(AuthContext);
+    const { users } = useContext(UserContext);
+    const currentUser = users.find(user => user.uid === comment.uid);
+
     let commentOwner = null;
 
     if (auth.currentUser) {
@@ -24,7 +28,7 @@ export const Comment = ({ comment }) => {
     return (
         <li className="comments-box">
             <h6>
-                {comment.email}
+                {currentUser.username}
             </h6>
             <p>
                 {comment.text}
