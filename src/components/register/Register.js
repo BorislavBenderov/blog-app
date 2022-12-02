@@ -3,11 +3,12 @@ import { AuthContext } from '../../contexts/AuthContext';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
+import { doc, setDoc } from 'firebase/firestore';
+import { database } from '../../firebaseConfig';
 
 export const Register = () => {
     const { auth } = useContext(AuthContext);
     const { users } = useContext(UserContext);
-    console.log(users);
     const navigate = useNavigate();
 
     const onSubmit = (e) => {
@@ -15,8 +16,11 @@ export const Register = () => {
 
         const formData = new FormData(e.target);
         const email = formData.get('email');
+        const username = formData.get('username');
         const password = formData.get('password');
         const repeatPassword = formData.get('repeatPassword');
+
+        const isUsernameInUse = users.find(user => user.username === username);
 
         if (password === '' || email === '' || repeatPassword === '') {
             alert('Please fill all the fields');
@@ -28,15 +32,27 @@ export const Register = () => {
             return;
         }
 
+        if (isUsernameInUse) {
+            alert('This username is already in use!');
+            return;
+        }
+
+        if (username.length < 2 || username.length > 10) {
+            alert('Username must be more than 2 characters and less then 10!');
+            return;
+        }
+
         setPersistence(auth, browserLocalPersistence)
-            .then(() => {
-                createUserWithEmailAndPassword(auth, email, password)
-                    .then(() => {
-                        navigate('/');
-                    })
-                    .catch((err) => {
-                        alert(err.message);
-                    });
+            .then(async () => {
+                const res = await createUserWithEmailAndPassword(auth, email, password)
+                setDoc(doc(database, 'users', res.user.uid), {
+                    username,
+                    uid: res.user.uid
+                });
+                navigate('/');
+            })
+            .catch((err) => {
+                alert(err.message);
             })
     }
 
