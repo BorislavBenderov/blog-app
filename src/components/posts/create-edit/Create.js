@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../contexts/AuthContext";
-import { PostContext } from "../../contexts/PostContext";
+import { AuthContext } from "../../../contexts/AuthContext";
+import { PostContext } from "../../../contexts/PostContext";
 import { addDoc, serverTimestamp } from "firebase/firestore";
 
 export const Create = () => {

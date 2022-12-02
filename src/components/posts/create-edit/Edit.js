@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { PostContext } from '../../contexts/PostContext';
+import { PostContext } from '../../../contexts/PostContext';
 import { doc, updateDoc } from 'firebase/firestore';
-import { database } from '../../firebaseConfig';
+import { database } from '../../../firebaseConfig';
 
 export const Edit = () => {
     const navigate = useNavigate();

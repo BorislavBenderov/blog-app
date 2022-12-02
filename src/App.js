@@ -1,13 +1,13 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { Nav } from './components/nav/Nav';
 import { Header } from './components/header/Header';
-import { Login } from './components/login/Login';
-import { Register } from './components/register/Register';
+import { Login } from './components/auth/Login';
+import { Register } from './components/auth/Register';
 import { Posts } from './components/posts/Posts';
-import { MyPosts } from './components/my-posts/MyPosts';
+import { MyPosts } from './components/posts/my-posts/MyPosts';
 import { CurrentPost } from './components/posts/CurrentPost';
-import { Create } from './components/create-post/Create';
-import { Edit } from './components/edit-post/Edit';
+import { Create } from './components/posts/create-edit/Create';
+import { Edit } from './components/posts/create-edit/Edit';
 import { Footer } from './components/footer/Footer';
 import { NotFound } from './components/not-found/NotFound';
 import { ProtectedRoutes } from './ProtectedRoutes';

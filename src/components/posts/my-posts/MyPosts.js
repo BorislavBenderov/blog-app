@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { PostContext } from "../../contexts/PostContext";
-import { AuthContext } from "../../contexts/AuthContext";
+import { PostContext } from "../../../contexts/PostContext";
+import { AuthContext } from "../../../contexts/AuthContext";
 import { MyPost } from "./MyPost";
 
 export const MyPosts = () => {
