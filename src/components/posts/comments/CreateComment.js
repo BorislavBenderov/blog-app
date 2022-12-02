@@ -20,7 +20,8 @@ export const CreateComment = ({ currentPost }) => {
             commentId: currentPost.id,
             uid: auth.currentUser.uid,
             email: auth.currentUser.email,
-            timestamp: serverTimestamp()
+            timestamp: serverTimestamp(),
+            likes: []
         });
 
         setInput('');
