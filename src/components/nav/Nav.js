@@ -55,7 +55,7 @@ export const Nav = () => {
                             </>
                             : <>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to='/'>
+                                    <Link className="nav-link" to={`/user/edit/${loggedUser.uid}`}>
                                         {loggedUser.email}
                                     </Link>
                                 </li>

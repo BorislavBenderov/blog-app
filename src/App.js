@@ -10,6 +10,7 @@ import { Create } from './components/posts/create-edit/Create';
 import { Edit } from './components/posts/create-edit/Edit';
 import { Footer } from './components/footer/Footer';
 import { NotFound } from './components/not-found/NotFound';
+import { EditUser } from './components/user-profile/EditUser'
 import { ProtectedRoutes } from './ProtectedRoutes';
 
 function App() {
@@ -23,13 +24,14 @@ function App() {
             <Route path='*' element={<NotFound />} />
             <Route path='/' element={<Posts />} />
             <Route path='/posts/:postId' element={<CurrentPost />} />
+            <Route path='/user/edit/:userId' element={<EditUser />} />
+            <Route path='/register' element={<Register />} />
+            <Route path='/login' element={<Login />} />
             <Route element={<ProtectedRoutes />}>
               <Route path='/myposts' element={<MyPosts />} />
               <Route path='/create' element={<Create />} />
               <Route path='/edit/:postId' element={<Edit />} />
             </Route>
-            <Route path='/register' element={<Register />} />
-            <Route path='/login' element={<Login />} />
           </Routes>
         </main>
         <Footer />
