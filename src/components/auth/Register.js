@@ -1,4 +1,4 @@
-import { setPersistence, createUserWithEmailAndPassword, browserLocalPersistence } from 'firebase/auth';
+import { setPersistence, createUserWithEmailAndPassword, browserLocalPersistence, updateProfile } from 'firebase/auth';
 import { AuthContext } from '../../contexts/AuthContext';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -48,6 +48,9 @@ export const Register = () => {
                 setDoc(doc(database, 'users', res.user.uid), {
                     username,
                     uid: res.user.uid
+                });
+                updateProfile(res.user, {
+                    displayName: username
                 });
                 navigate('/');
             })
