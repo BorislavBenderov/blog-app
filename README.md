@@ -83,3 +83,9 @@ User have possibility to search posts by their title or description.
 ### Logout
 
 When user click on logout button in navigation panel his session has expired.
+
+
+### Guest Users
+
+Guest users have possibility to see all blog posts and comments but they can't
+to change anything.
