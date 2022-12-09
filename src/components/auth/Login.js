@@ -1,13 +1,15 @@
 import { setPersistence, signInWithEmailAndPassword, browserLocalPersistence } from 'firebase/auth';
+import { useState } from 'react';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
 import './login.css';
 
 export const Login = () => {
+    const [err, setErr] = useState('');
     const { auth } = useContext(AuthContext);
     const navigate = useNavigate();
-    
+
     const onSubmit = (e) => {
         e.preventDefault();
 
@@ -16,20 +18,20 @@ export const Login = () => {
         const password = formData.get('password');
 
         if (password === '' || email === '') {
-            alert('Please fill all the fields');
+            setErr('Please fill all the fields');
             return;
         }
 
         setPersistence(auth, browserLocalPersistence)
             .then(() => {
                 signInWithEmailAndPassword(auth, email, password)
-                .then(() => {
-                    navigate('/');
-                })
-                .catch((err) => {
-                    alert(err.message);
-                });
-            })  
+                    .then(() => {
+                        navigate('/');
+                    })
+                    .catch((err) => {
+                        setErr(err.message);
+                    });
+            })
     }
 
     return (
@@ -40,6 +42,7 @@ export const Login = () => {
             <label htmlFor="password">Password</label>
             <input type="password" placeholder="Password" id="password" name="password" />
             <button type="submit">Log In</button>
+            <p className='error'>{err}</p>
         </form>
     );
 }
