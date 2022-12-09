@@ -28,13 +28,19 @@ export const CurrentPost = () => {
         isOwner = currentPost.ownerId === auth.currentUser.uid;
     }
 
-    const onDelete = async (id, e) => {
+    const onDelete = (id, e) => {
         const confirmation = window.confirm('Are you sure you want to delete this post?');
 
         if (confirmation) {
             e.preventDefault();
-            navigate('/');
-            await deleteDoc(doc(database, 'posts', id));
+
+            deleteDoc(doc(database, 'posts', id))
+                .then(() => {
+                    navigate('/');
+                })
+                .catch((err) => {
+                    alert(err.message);
+                })
         }
     }
 
@@ -75,7 +81,7 @@ export const CurrentPost = () => {
                         <h4 className="comments-title">
                             Comments
                         </h4>
-                        <Comments currentPost={currentPost}/>
+                        <Comments currentPost={currentPost} />
                     </div>
                 </div>
             </div>
