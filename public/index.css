@@ -12197,3 +12197,10 @@ section.height-auto {
 .no-comments {
   text-align: center;
 }
+
+.error {
+  text-align: center;
+  color: red;
+  margin-top: 20px;
+  font-weight: 600;
+}
