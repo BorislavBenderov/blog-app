@@ -3,8 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { PostContext } from "../../../contexts/PostContext";
 import { addDoc, serverTimestamp } from "firebase/firestore";
+import { useState } from "react";
 
 export const Create = () => {
+    const [err, setErr] = useState('');
     const { auth } = useContext(AuthContext);
     const { collectionRef } = useContext(PostContext);
     const navigate = useNavigate();
@@ -20,7 +22,7 @@ export const Create = () => {
         const content = formData.get('content');
 
         if (title === '' || description === '' || imageUrl === '' || content === '') {
-            alert('Please fill all the fields');
+            setErr('Please fill all the fields');
             return;
         }
 
@@ -38,7 +40,7 @@ export const Create = () => {
             .then(() => {
                 navigate('/');
             })
-            .catch((err) => {
+            .setErr((err) => {
                 alert(err.message);
             })
     }
@@ -55,6 +57,7 @@ export const Create = () => {
             <label htmlFor="content"></label>
             <textarea type="text" placeholder="Content" id="content" name="content" />
             <button type="submit">Add Post</button>
+            <p className="error">{err}</p>
         </form>
     );
 }

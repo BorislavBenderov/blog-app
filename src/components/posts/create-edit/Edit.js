@@ -5,6 +5,7 @@ import { doc, updateDoc } from 'firebase/firestore';
 import { database } from '../../../firebaseConfig';
 
 export const Edit = () => {
+    const [err, setErr] = useState('');
     const navigate = useNavigate();
     const { postId } = useParams();
     const { posts } = useContext(PostContext);
@@ -37,7 +38,7 @@ export const Edit = () => {
         const content = formData.get('content');
 
         if (author === '' || title === '' || description === '' || imageUrl === '' || content === '') {
-            alert('Please fill all the fields');
+            setErr('Please fill all the fields');
             return;
         }
 
@@ -56,7 +57,7 @@ export const Edit = () => {
                 navigate(`/posts/${postId}`);
             })
             .catch((err) => {
-                alert(err.message);
+                setErr(err.message);
             });
 
     };
@@ -73,6 +74,7 @@ export const Edit = () => {
             <label htmlFor="content"></label>
             <textarea type="text" placeholder="Content" id="content" name="content" value={values.content} onChange={changeHandler} />
             <button type="submit">Edit Post</button>
+            <p className="error">{err}</p>
         </form>
     );
 }
