@@ -21,7 +21,13 @@ export const Comment = ({ comment }) => {
 
         if (confirmation) {
             e.preventDefault();
-            await deleteDoc(doc(database, 'comments', id));
+
+            try {
+                await deleteDoc(doc(database, 'comments', id));
+            } catch (error) {
+                alert(error.message);
+            }
+
         }
     }
 
