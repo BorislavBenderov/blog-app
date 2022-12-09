@@ -7,7 +7,7 @@ export const CreateComment = ({ currentPost }) => {
     const [input, setInput] = useState([]);
     const { auth } = useContext(AuthContext);
 
-    const onCreateComment = async (e) => {
+    const onCreateComment = (e) => {
         e.preventDefault();
 
         if (input === '') {
@@ -15,16 +15,22 @@ export const CreateComment = ({ currentPost }) => {
             return;
         }
 
-        await addDoc(collection(database, 'comments'), {
+        addDoc(collection(database, 'comments'), {
             text: input,
             commentId: currentPost.id,
             uid: auth.currentUser.uid,
             email: auth.currentUser.email,
             timestamp: serverTimestamp(),
             likes: []
-        });
+        })
+            .then(() => {
+                setInput('');
+            })
+            .catch((err) => {
+                alert(err.message);
+            })
 
-        setInput('');
+
     }
 
     return (
