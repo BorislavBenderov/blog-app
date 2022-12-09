@@ -1,12 +1,13 @@
 import { setPersistence, createUserWithEmailAndPassword, browserLocalPersistence, updateProfile } from 'firebase/auth';
 import { AuthContext } from '../../contexts/AuthContext';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
 import { doc, setDoc } from 'firebase/firestore';
 import { database } from '../../firebaseConfig';
 
 export const Register = () => {
+    const [err, setErr] = useState('');
     const { auth } = useContext(AuthContext);
     const { users } = useContext(UserContext);
     const navigate = useNavigate();
@@ -23,22 +24,22 @@ export const Register = () => {
         const isUsernameInUse = users.find(user => user.username === username);
 
         if (password === '' || email === '' || repeatPassword === '') {
-            alert('Please fill all the fields');
+            setErr('Please fill all the fields');
             return;
         }
 
         if (password !== repeatPassword) {
-            alert('Your password and confirmation password do not match');
+            setErr('Your password and confirmation password do not match');
             return;
         }
 
         if (isUsernameInUse) {
-            alert('This username is already in use!');
+            setErr('This username is already in use!');
             return;
         }
 
         if (username.length < 2 || username.length > 10) {
-            alert('Username must be more than 2 characters and less then 10!');
+            setErr('Username must be more than 2 characters and less then 10!');
             return;
         }
 
@@ -55,7 +56,7 @@ export const Register = () => {
                 navigate('/');
             })
             .catch((err) => {
-                alert(err.message);
+                setErr(err.message);
             })
     }
 
@@ -71,6 +72,7 @@ export const Register = () => {
             <label htmlFor="repeatPassword"></label>
             <input type="password" placeholder="Repeat Password" id="repeatPassword" name="repeatPassword" />
             <button type="submit">Register</button>
+            <p className="error">{err}</p>
         </form>
     );
 }
