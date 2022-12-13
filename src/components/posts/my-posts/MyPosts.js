@@ -13,7 +13,7 @@ export const MyPosts = () => {
         <section>
             {postOwner.length > 0
                 ? postOwner.map(post => <MyPost key={post.id} post={post} />)
-                : <p>No posts in database!</p>}
+                : <p className="no-posts">No posts in database!</p>}
         </section>
     );
 }

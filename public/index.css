@@ -12204,3 +12204,7 @@ section.height-auto {
   margin-top: 20px;
   font-weight: 600;
 }
+
+.no-posts {
+  text-align: center;
+}
