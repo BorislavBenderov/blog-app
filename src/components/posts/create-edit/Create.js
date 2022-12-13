@@ -40,8 +40,8 @@ export const Create = () => {
             .then(() => {
                 navigate('/');
             })
-            .setErr((err) => {
-                alert(err.message);
+            .catch((err) => {
+                setErr(err.message);
             })
     }
 
