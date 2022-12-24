@@ -6,6 +6,7 @@ export const PostContext = createContext();
 
 export const PostContextProvider = ({ children }) => {
     const [posts, setPosts] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const collectionRef = collection(database, 'posts');
 
@@ -15,11 +16,12 @@ export const PostContextProvider = ({ children }) => {
             setPosts(data.docs.map(item => {
                 return { ...item.data(), id: item.id };
             }))
+            setIsLoading(true);
         })
-    }, []);
+    }, [isLoading]);
 
     return (
-        <PostContext.Provider value={{ posts, collectionRef }}>
+        <PostContext.Provider value={{ posts, collectionRef, isLoading }}>
             {children}
         </PostContext.Provider>
     );
