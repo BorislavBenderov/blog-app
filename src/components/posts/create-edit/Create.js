@@ -7,6 +7,7 @@ import { useState } from "react";
 
 export const Create = () => {
     const [err, setErr] = useState('');
+    const [loading, setLoading] = useState(false);
     const { auth } = useContext(AuthContext);
     const { collectionRef } = useContext(PostContext);
     const navigate = useNavigate();
@@ -36,12 +37,16 @@ export const Create = () => {
             likes: []
         };
 
+        setLoading(true);
+
         addDoc(collectionRef, allBookData)
             .then(() => {
                 navigate('/');
+                setLoading(false);
             })
             .catch((err) => {
                 setErr(err.message);
+                setLoading(false);
             })
     }
 
@@ -56,7 +61,7 @@ export const Create = () => {
             <input type="text" placeholder="Image" id="imageUrl" name="imageUrl" />
             <label htmlFor="content"></label>
             <textarea type="text" placeholder="Content" id="content" name="content" />
-            <button type="submit">Add Post</button>
+            <button type="submit">{loading ? "Loading..." : "Add Post"}</button>
             <p className="error">{err}</p>
         </form>
     );
